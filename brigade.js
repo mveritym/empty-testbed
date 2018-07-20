@@ -21,8 +21,8 @@ events.on("push_many", function(e, project) {
 
   function makeJob(i) {
     var job = new Job(`node-runner-${i}`);
-    node.image = "node:8";
-    node.tasks = [
+    job.image = "node:8";
+    job.tasks = [
       "cd /src/hello",
       "npm install",
       "node index.js"
