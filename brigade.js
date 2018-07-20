@@ -34,7 +34,7 @@ events.on("push_many", function(e, project) {
   job2 = makeJob(2);
   job3 = makeJob(3);
 
-  Group.runEach([job1, job2, job3]).then(() => {
+  Group.runAll([job1, job2, job3]).then(() => {
     console.log("Completed all jobs")
   });
 })
