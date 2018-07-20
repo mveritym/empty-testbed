@@ -15,3 +15,26 @@ events.on("push", function(e, project) {
 
   node.run()
 })
+
+events.on("push_many", function(e, project) {
+  console.log("===> Building " + project.repo.cloneURL + " " + e.commit)
+
+  function makeJob(i) {
+    var job = new Job(`node-runner-${i}`);
+    node.image = "node:8";
+    node.tasks = [
+      "cd /src/hello",
+      "npm install",
+      "node index.js"
+    ];
+    return job;
+  }
+
+  job1 = makeJob(1);
+  job2 = makeJob(2);
+  job3 = makeJob(3);
+
+  Group.runEach([job1, job2, job3]).then(() => {
+    console.log("Completed all jobs")
+  });
+})
